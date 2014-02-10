@@ -3,10 +3,10 @@ package com.ema.othelloVE;
 import java.util.ArrayList;
 
 import com.ema.othelloVE.Jeton;
-
 import com.ema.othelloVE.Coup;
 
 import android.util.Log;
+import android.widget.Toast;
 
 public class ControleurJeu implements Runnable {
 
@@ -127,18 +127,20 @@ public class ControleurJeu implements Runnable {
 				if (!iaReflechi) {
 						// A COMPLETER
 						// vérifier si coup valide
-						// mettre à jour le plateau par retournement des pions
-						// exemple : mise à jour du plateau par pion joué par l'humain :
-						plateau.setPlateau(myEventMotion.x, myEventMotion.y,
-							joueurEnCours.getCouleur());
-						// faire le changement du joueur courant
-						changeJoueurEnCours();
-						
-						// mise à jour de l'état de l'IA
-						iaReflechi = false;
-						
-						// mise à jour de l'affichage
-						updateUI();					
+						if (ControleurPlateau.coupPossible(plateau, myEventMotion.x, myEventMotion.y, joueurEnCours.getCouleur())){
+							// mettre à jour le plateau par retournement des pions
+							// exemple : mise à jour du plateau par pion joué par l'humain :
+							plateau.setPlateau(myEventMotion.x, myEventMotion.y,
+								joueurEnCours.getCouleur());
+							// faire le changement du joueur courant
+							changeJoueurEnCours();
+							
+							// mise à jour de l'état de l'IA
+							iaReflechi = false;
+							
+							// mise à jour de l'affichage
+							updateUI();	
+						}
 					}
 				}
 			else 
@@ -149,14 +151,16 @@ public class ControleurJeu implements Runnable {
 					
 					// A COMPLETER
 					// vérifier si coup valide
-					// mettre à jour le plateau par retournement des pions
-					// exemple : mise à jour du plateau par pion joué par l'automate :
-					plateau.setPlateau(myEventunCoup.coup.getLigne(), myEventunCoup.coup.getColonne(),
-							joueurEnCours.getCouleur());
-					// faire le changement du joueur courant					
-					changeJoueurEnCours();
-					// mise à jour de l'affichage
-					updateUI();
+					if (ControleurPlateau.coupPossible(plateau, myEventunCoup.coup.getLigne(), myEventunCoup.coup.getColonne(),joueurEnCours.getCouleur())){
+						// mettre à jour le plateau par retournement des pions
+						// exemple : mise à jour du plateau par pion joué par l'automate :
+						plateau.setPlateau(myEventunCoup.coup.getLigne(), myEventunCoup.coup.getColonne(),
+								joueurEnCours.getCouleur());
+						// faire le changement du joueur courant					
+						changeJoueurEnCours();
+						// mise à jour de l'affichage
+						updateUI();
+					}
 				}
 				else {
 				throw new java.lang.Error();
