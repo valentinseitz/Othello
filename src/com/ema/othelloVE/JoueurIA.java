@@ -1,6 +1,8 @@
 package com.ema.othelloVE;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -78,22 +80,29 @@ import android.util.Log;
 	    
 	    private Coup calculCoupDebutant()
 	    {	// retourne un coup possible choisi aléatoirement
-	    	List<List<Integer>> possibles = new ArrayList<List<Integer>>();
-	    	List<Integer> couple;
+	    	List<HeuristiqueCoord> possibles = new ArrayList<HeuristiqueCoord>();
+	    	HeuristiqueCoord coord;
 	    	Random rand = new Random();
 	    	int index;
+	    	Coup coup;
 	    	for (int i = 0; i < plateau.getNbLignes(); i++){
 	    		for (int j = 0; j < plateau.getNbLignes(); j++){
 	    			if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)){
-	    				couple = new ArrayList<Integer>();
-	    				couple.add(i);
-	    				couple.add(j);
-	    				possibles.add(couple);
+	    				coord = new HeuristiqueCoord();
+	    				coord.setX(i);
+	    				coord.setY(j);
+	    				possibles.add(coord);
 	    			}
 		    	}	
 	    	}
-	    	index = rand.nextInt(possibles.size());
-	    	return (new Coup (possibles.get(index).get(0),possibles.get(index).get(1),Jeton.NOIR));
+	    	if (possibles.size() > 0){
+	    		index = rand.nextInt(possibles.size());
+	    		coup = new Coup (possibles.get(index).getX(),possibles.get(index).getY(),this.couleur);
+	    	} else {
+	    		coup = null;
+	    	}
+	    	
+	    	return coup;
 
 	    }
 	    
@@ -101,9 +110,36 @@ import android.util.Log;
 	    private Coup calculCoupMoyen()
 	    {	// retourne le coup qui maximise les retournements
 	    	// sur arbre de recherche développé à 1 niveau
-	    	// A COMPLETER
+	    	List<HeuristiqueCoord> possibles = new ArrayList<HeuristiqueCoord>();
+	    	HeuristiqueCoord coord;
+	    	
+	    	Coup coup;
+	    	for (int i = 0; i < plateau.getNbLignes(); i++){
+	    		for (int j = 0; j < plateau.getNbLignes(); j++){
+	    			if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)){
+	    				coord = new HeuristiqueCoord();
+	    				coord.setX(i);
+	    				coord.setY(j);
+	    				possibles.add(coord);
+	    			}
+		    	}	
+	    	}
+	    	
+	    	Collections.sort(possibles, new Comparator<HeuristiqueCoord>() {
 
-	    	return (new Coup (4,2,Jeton.NOIR));
+				@Override
+				public int compare(HeuristiqueCoord arg0, HeuristiqueCoord arg1) {
+					return arg0.getHeuristique() - arg1.getHeuristique();
+				}
+			});
+	    	
+	    	if (possibles.size() > 0){
+	    		coup = new Coup (possibles.get(0).getX(),possibles.get(0).getY(),this.couleur);
+	    	} else {
+	    		coup = null;
+	    	}
+	    	
+	    	return coup;
 	    	
 	    }
 	    
@@ -115,8 +151,30 @@ import android.util.Log;
 
 	    }
 	    
-	  
-
+	    private class HeuristiqueCoord {
+	    	private int heuristique;
+	    	private int x;
+	    	private int y;
+			
+	    	public int getHeuristique() {
+				return heuristique;
+			}
+			public void setHeuristique(int heuristique) {
+				this.heuristique = heuristique;
+			}
+			public int getX() {
+				return x;
+			}
+			public void setX(int x) {
+				this.x = x;
+			}
+			public int getY() {
+				return y;
+			}
+			public void setY(int y) {
+				this.y = y;
+			}
+	    }
 	    
 
 }

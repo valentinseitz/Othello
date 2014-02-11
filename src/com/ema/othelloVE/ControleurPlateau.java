@@ -136,4 +136,62 @@ public class ControleurPlateau {
 		}
 	}
 
+	public static int nbRetournementsPossibles(Plateau plateau, int x, int y, byte jeton){
+		int nb = 0;
+		
+		for (int i =  -1; i <= 1; i++){
+			for (int j =  -1; j <= 1; j++){
+				//Une cellule adjacente?
+				if (i != 0 || j != 0){
+					//La droite donnée par la cellule testée et la cellule adjacente est-elle possible?
+					nb += nbPossibleSurDroite(plateau, x, y, jeton, i, j);
+				}
+			}
+		}
+		
+		return nb;
+	}
+	
+	private static int nbPossibleSurDroite(Plateau plateau, int x, int y, byte jeton, int dirX, int dirY){
+		int nb = 0;
+		
+		int droiteX;
+		int droiteY;
+		byte jetonATester;
+		boolean continuer;
+		
+		droiteX = x;
+		droiteY = y;
+		jeton = plateau.getJeton(x, y);
+		continuer = true;
+		while (continuer){
+			droiteX = droiteX + dirX;
+			droiteY = droiteY + dirY;
+			jetonATester = plateau.getJeton(droiteX, droiteY);
+			//Selon le type de jeton
+			switch (jetonATester){
+				case Jeton.VIDE :
+					//Si l'on rencontre un jeton vide on est en boit de droite
+					continuer = false;
+					break;
+				case Jeton.NOIR :
+				case Jeton.BLANC : 
+					//Un jeton de joueur
+					if (jetonATester == jeton){
+						//Si c'est un jeton du même jeton il faut qu'il y en ait au moins un de couleur opposée entre (distance > 0)
+						continuer = false;
+					} else {
+						//Si l'on est sur un jeton de couleur opposée il faut le retourner et continuer sur la droite
+						nb++;
+						continuer = true;
+					}
+					break;
+				default:
+					continuer = false;
+			}
+		}
+		
+		return nb;
+	}
+
 }
