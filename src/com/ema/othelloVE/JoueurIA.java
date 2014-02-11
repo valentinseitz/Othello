@@ -1,7 +1,9 @@
 package com.ema.othelloVE;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -76,8 +78,22 @@ import android.util.Log;
 	    
 	    private Coup calculCoupDebutant()
 	    {	// retourne un coup possible choisi aléatoirement
-	    	// A COMPLETER
-	    		return (new Coup (4,2,Jeton.NOIR));
+	    	List<List<Integer>> possibles = new ArrayList<List<Integer>>();
+	    	List<Integer> couple;
+	    	Random rand = new Random();
+	    	int index;
+	    	for (int i = 0; i < plateau.getNbLignes(); i++){
+	    		for (int j = 0; j < plateau.getNbLignes(); j++){
+	    			if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)){
+	    				couple = new ArrayList<Integer>();
+	    				couple.add(i);
+	    				couple.add(j);
+	    				possibles.add(couple);
+	    			}
+		    	}	
+	    	}
+	    	index = rand.nextInt(possibles.size());
+	    	return (new Coup (possibles.get(index).get(0),possibles.get(index).get(1),Jeton.NOIR));
 
 	    }
 	    
