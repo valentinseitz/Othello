@@ -50,7 +50,7 @@ public class ControleurPlateau {
 				//Selon le type de jeton
 				switch (jetonATester){
 					case Jeton.VIDE :
-						//Si l'on rencontre un jeton vide la ligne est impossible
+						//Si l'on rencontre un jeton vide la droite est impossible
 						possible = false;
 						continuer = false;
 						break;
@@ -68,7 +68,8 @@ public class ControleurPlateau {
 						}
 						break;
 					default:
-						
+						possible = false;
+						continuer = false;
 				}
 				//On va un jeton plus loin
 				distance++;
@@ -79,6 +80,60 @@ public class ControleurPlateau {
 		}
 		
 		return possible;
+	}
+	
+	public static void retournePions(Plateau plateau, int x, int y){
+		//Parcours des cellules aux alentours
+		for (int i =  -1; i <= 1; i++){
+			for (int j =  -1; j <= 1; j++){
+				//Une cellule adjacente?
+				if (i != 0 || j != 0){
+					//La droite donnée par la cellule testée et la cellule adjacente est-elle possible?
+					if (droitePossible(plateau, x, y, plateau.getJeton(x, y), i, j)){
+						retourneDroite(plateau, x, y, i, j);
+					}
+				}
+			}
+		}
+	}
+	
+	private static void retourneDroite(Plateau plateau, int x, int y, int dirX, int dirY){
+		byte jeton;
+		int droiteX;
+		int droiteY;
+		byte jetonARetourner;
+		boolean continuer;
+		
+		droiteX = x;
+		droiteY = y;
+		jeton = plateau.getJeton(x, y);
+		continuer = true;
+		while (continuer){
+			droiteX = droiteX + dirX;
+			droiteY = droiteY + dirY;
+			jetonARetourner = plateau.getJeton(droiteX, droiteY);
+			//Selon le type de jeton
+			switch (jetonARetourner){
+				case Jeton.VIDE :
+					//Si l'on rencontre un jeton vide on est en boit de droite
+					continuer = false;
+					break;
+				case Jeton.NOIR :
+				case Jeton.BLANC : 
+					//Un jeton de joueur
+					if (jetonARetourner == jeton){
+						//Si c'est un jeton du même jeton il faut qu'il y en ait au moins un de couleur opposée entre (distance > 0)
+						continuer = false;
+					} else {
+						//Si l'on est sur un jeton de couleur opposée il faut le retourner et continuer sur la droite
+						plateau.setPlateau(droiteX, droiteY, jeton);
+						continuer = true;
+					}
+					break;
+				default:
+					continuer = false;
+			}
+		}
 	}
 
 }
