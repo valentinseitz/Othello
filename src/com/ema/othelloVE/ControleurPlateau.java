@@ -193,5 +193,20 @@ public class ControleurPlateau {
 		
 		return nb;
 	}
+	
+	public static boolean peutJouer(Plateau plateau, byte jeton){
+		boolean possible;
+		
+		possible = false;
+		//Parcours des cellules aux alentours
+		for (int i = 0; !possible && i < plateau.getNbLignes(); i++){
+			for (int j = 0; !possible && j < plateau.getNbLignes(); j++){
+				//Une cellule adjacente?
+				possible = coupPossible(plateau, i, j, jeton);
+			}
+		}
+		
+		return possible;
+	}
 
 }
