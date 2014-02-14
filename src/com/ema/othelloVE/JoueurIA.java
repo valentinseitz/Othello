@@ -112,29 +112,36 @@ import android.util.Log;
 	    	// sur arbre de recherche développé à 1 niveau
 	    	List<HeuristiqueCoord> possibles = new ArrayList<HeuristiqueCoord>();
 	    	HeuristiqueCoord coord;
-	    	
+	    	int heuristique;
+	    	int maxHeuristique;
+	    	Random rand = new Random();
+	    	int index;
 	    	Coup coup;
+	    	
+	    	maxHeuristique = -1;
 	    	for (int i = 0; i < plateau.getNbLignes(); i++){
 	    		for (int j = 0; j < plateau.getNbLignes(); j++){
 	    			if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)){
-	    				coord = new HeuristiqueCoord();
-	    				coord.setX(i);
-	    				coord.setY(j);
-	    				possibles.add(coord);
+	    				heuristique = ControleurPlateau.nbRetournementsPossibles(plateau, i, j, this.couleur);
+	    				if (heuristique >= maxHeuristique){
+	    					if (heuristique > maxHeuristique){
+	    						possibles.clear();
+	    						maxHeuristique = heuristique;
+	    					}
+	    					coord = new HeuristiqueCoord();
+		    				coord.setX(i);
+		    				coord.setY(j);
+		    				coord.setHeuristique(heuristique);
+		    				possibles.add(coord);
+	    				}
+	    				
 	    			}
 		    	}	
 	    	}
 	    	
-	    	Collections.sort(possibles, new Comparator<HeuristiqueCoord>() {
-
-				@Override
-				public int compare(HeuristiqueCoord arg0, HeuristiqueCoord arg1) {
-					return arg0.getHeuristique() - arg1.getHeuristique();
-				}
-			});
-	    	
 	    	if (possibles.size() > 0){
-	    		coup = new Coup (possibles.get(0).getX(),possibles.get(0).getY(),this.couleur);
+	    		index = rand.nextInt(possibles.size());
+	    		coup = new Coup (possibles.get(index).getX(),possibles.get(index).getY(),this.couleur);
 	    	} else {
 	    		coup = null;
 	    	}
