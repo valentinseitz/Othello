@@ -46,8 +46,8 @@ public class ControleurPlateau {
 			droiteX = droiteX + dirX;
 			droiteY = droiteY + dirY;
 			// Coordonnées dans le plateau?
-			possible = droiteX >= 0 && droiteX < plateau.getNbLignes()
-					&& droiteY >= 0 && droiteY < plateau.getNbLignes();
+			possible = droiteX >= 0 && droiteX < Plateau.TAILLE
+					&& droiteY >= 0 && droiteY < Plateau.TAILLE;
 			if (possible) {
 				// Quel est le jeton à tester?
 				jetonATester = plateau.getJeton(droiteX, droiteY);
@@ -139,7 +139,7 @@ public class ControleurPlateau {
 				} else {
 					// Si l'on est sur un jeton de couleur opposée il faut le
 					// retourner et continuer sur la droite
-					plateau.setPlateau(droiteX, droiteY, jeton);
+					plateau.setJeton(droiteX, droiteY, jeton);
 					continuer = true;
 				}
 				break;
@@ -182,8 +182,8 @@ public class ControleurPlateau {
 		while (continuer) {
 			droiteX = droiteX + dirX;
 			droiteY = droiteY + dirY;
-			continuer = droiteX >= 0 && droiteX < plateau.getNbLignes()
-					&& droiteY >= 0 && droiteY < plateau.getNbLignes();
+			continuer = droiteX >= 0 && droiteX < Plateau.TAILLE
+					&& droiteY >= 0 && droiteY < Plateau.TAILLE;
 			if (continuer) {
 				jetonATester = plateau.getJeton(droiteX, droiteY);
 				// Selon le type de jeton
@@ -223,8 +223,8 @@ public class ControleurPlateau {
 
 		possible = false;
 		// Parcours des cellules aux alentours
-		for (int i = 0; !possible && i < plateau.getNbLignes(); i++) {
-			for (int j = 0; !possible && j < plateau.getNbLignes(); j++) {
+		for (int i = 0; !possible && i < Plateau.TAILLE; i++) {
+			for (int j = 0; !possible && j < Plateau.TAILLE; j++) {
 				// Une cellule adjacente?
 				possible = coupPossible(plateau, i, j, jeton);
 			}

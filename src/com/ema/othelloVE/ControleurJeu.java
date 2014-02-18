@@ -134,7 +134,7 @@ public class ControleurJeu implements Runnable {
 							// pions
 							// exemple : mise à jour du plateau par pion joué
 							// par l'humain :
-							plateau.setPlateau(myEventMotion.x,
+							plateau.setJeton(myEventMotion.x,
 									myEventMotion.y, joueurEnCours.getCouleur());
 							ControleurPlateau.retournePions(plateau,
 									myEventMotion.x, myEventMotion.y);
@@ -161,7 +161,7 @@ public class ControleurJeu implements Runnable {
 						// mettre à jour le plateau par retournement des pions
 						// exemple : mise à jour du plateau par pion joué par
 						// l'automate :
-						plateau.setPlateau(myEventunCoup.coup.getLigne(),
+						plateau.setJeton(myEventunCoup.coup.getLigne(),
 								myEventunCoup.coup.getColonne(),
 								joueurEnCours.getCouleur());
 						ControleurPlateau.retournePions(plateau,

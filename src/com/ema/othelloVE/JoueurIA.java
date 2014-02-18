@@ -85,8 +85,8 @@ import android.util.Log;
 	    	Random rand = new Random();
 	    	int index;
 	    	Coup coup;
-	    	for (int i = 0; i < plateau.getNbLignes(); i++){
-	    		for (int j = 0; j < plateau.getNbLignes(); j++){
+	    	for (int i = 0; i < Plateau.TAILLE; i++){
+	    		for (int j = 0; j < Plateau.TAILLE; j++){
 	    			if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)){
 	    				coord = new HeuristiqueCoord();
 	    				coord.setX(i);
@@ -119,8 +119,8 @@ import android.util.Log;
 	    	Coup coup;
 	    	
 	    	maxHeuristique = -1;
-	    	for (int i = 0; i < plateau.getNbLignes(); i++){
-	    		for (int j = 0; j < plateau.getNbLignes(); j++){
+	    	for (int i = 0; i < Plateau.TAILLE; i++){
+	    		for (int j = 0; j < Plateau.TAILLE; j++){
 	    			if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)){
 	    				heuristique = ControleurPlateau.nbRetournementsPossibles(plateau, i, j, this.couleur);
 	    				if (heuristique >= maxHeuristique){
