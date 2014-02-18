@@ -81,7 +81,6 @@ public class ControleurJeu implements Runnable {
 	}
 
 	private ArrayList<MyEvent> events = new ArrayList<MyEvent>();
-	private boolean iaReflechi = false;
 
 	@Override
 	public void run() {
@@ -92,7 +91,6 @@ public class ControleurJeu implements Runnable {
 		// (EventMotion) alternativement si mode de jeu semi-automatique
 
 		Log.v(TAG, "start");
-		Coup p;
 		boolean fin = false;
 		plateau.initPlateau();
 		ihmPlateau.initPlateau(plateau);
@@ -101,11 +99,7 @@ public class ControleurJeu implements Runnable {
 		updateUI();
 
 		if (joueurEnCours.isIA()) {
-			synchronized (events) {
-				iaReflechi = true;
-			}
 			((JoueurIA) joueurEnCours).calculCoup();
-
 		}
 		while (!fin) {
 			MyEvent event = null;
@@ -115,87 +109,53 @@ public class ControleurJeu implements Runnable {
 						events.wait();
 					}
 					event = events.remove(0);
-
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-			synchronized (events) {
-				if (event instanceof MyEventMotion) {
-					MyEventMotion myEventMotion = (MyEventMotion) event;
-					if (!iaReflechi) {
-						// A COMPLETER
+					// L'evenement vient-il du joueur dont c'est le tour de
+					// jouer?
+					if (event.getJoueur() == joueurEnCours) {
 						// vérifier si coup valide
 						if (ControleurPlateau.coupPossible(plateau,
-								myEventMotion.x, myEventMotion.y,
+								event.getX(), event.getY(),
 								joueurEnCours.getCouleur())) {
 							// mettre à jour le plateau par retournement des
 							// pions
 							// exemple : mise à jour du plateau par pion joué
 							// par l'humain :
-							plateau.setJeton(myEventMotion.x,
-									myEventMotion.y, joueurEnCours.getCouleur());
+							plateau.setJeton(event.getX(), event.getY(),
+									joueurEnCours.getCouleur());
 							ControleurPlateau.retournePions(plateau,
-									myEventMotion.x, myEventMotion.y);
+									event.getX(), event.getY());
 							// faire le changement du joueur courant
 							changeJoueurEnCours();
-
-							// mise à jour de l'état de l'IA
-							iaReflechi = false;
 
 							// mise à jour de l'affichage
 							updateUI();
 						}
-					}
-				} else if (event instanceof MyEventCoupIA) {
-					MyEventCoupIA myEventunCoup = (MyEventCoupIA) event;
-					iaReflechi = false;
 
-					// A COMPLETER
-					// vérifier si coup valide
-					if (ControleurPlateau.coupPossible(plateau,
-							myEventunCoup.coup.getLigne(),
-							myEventunCoup.coup.getColonne(),
-							joueurEnCours.getCouleur())) {
-						// mettre à jour le plateau par retournement des pions
-						// exemple : mise à jour du plateau par pion joué par
-						// l'automate :
-						plateau.setJeton(myEventunCoup.coup.getLigne(),
-								myEventunCoup.coup.getColonne(),
-								joueurEnCours.getCouleur());
-						ControleurPlateau.retournePions(plateau,
-								myEventunCoup.coup.getLigne(),
-								myEventunCoup.coup.getColonne());
-						// faire le changement du joueur courant
-						changeJoueurEnCours();
-						// mise à jour de l'affichage
-						updateUI();
-					}
-				} else {
-					throw new java.lang.Error();
-				}
+						// verification si joueur en cours peut jouer
+						if (!ControleurPlateau.peutJouer(plateau,
+								joueurEnCours.getCouleur())) {
+							// faire le changement du joueur courant
+							changeJoueurEnCours();
+							// mise à jour de l'affichage
+							updateUI();
+							// Si l'autre joueur non plus ne peut pas jouer,
+							// c'est
+							// forcément la fin de la partie
+							if (!ControleurPlateau.peutJouer(plateau,
+									joueurEnCours.getCouleur())) {
+								fin = true;
+							}
+						}
 
-				// verification si joueur en cours peut jouer
-				if (!ControleurPlateau.peutJouer(plateau,
-						joueurEnCours.getCouleur())) {
-					// faire le changement du joueur courant
-					changeJoueurEnCours();
-					// mise à jour de l'affichage
-					updateUI();
-					// Si l'autre joueur non plus ne peut pas jouer, c'est
-					// forcément la fin de la partie
-					if (!ControleurPlateau.peutJouer(plateau,
-							joueurEnCours.getCouleur())) {
-						fin = true;
+						// si joueur en cours est de type IA : mettre à jour
+						// iaReflechi et lancer la demande de calcul du coup:
+						if (!fin && joueurEnCours.isIA()) {
+							((JoueurIA) joueurEnCours).calculCoup();
+						}
 					}
-				}
-				
-				// si joueur en cours est de type IA : mettre à jour
-				// iaReflechi et lancer la demande de calcul du coup:
-				if (!fin && joueurEnCours.isIA()) {
-					iaReflechi = true;
-					((JoueurIA) joueurEnCours).calculCoup();
+
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 
@@ -228,7 +188,15 @@ public class ControleurJeu implements Runnable {
 
 	}
 
-	public void publishEvent(MyEvent event) {
+	public void publishEvent(int x, int y) {
+		if (!joueurEnCours.isIA()){
+			publishEvent(x, y, joueurEnCours);
+		}
+	}
+
+	public void publishEvent(int x, int y, Joueur joueur) {
+		MyEvent event;
+		event = new MyEvent(joueur, x, y);
 		// abonnement aux événements émis par le joueur IA
 		synchronized (events) {
 			events.add(event);

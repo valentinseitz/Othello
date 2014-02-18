@@ -158,12 +158,8 @@ public class IhmPlateau extends View {
 
 		if (aEvent.getAction() == MotionEvent.ACTION_DOWN) {
 			Point place = positionSurPlateau(aEvent.getX(), aEvent.getY());
-
 			if (place.x < NB_COL && place.y < NB_LIG) {
-				MyEventMotion event = new MyEventMotion();
-				event.x = place.x;
-				event.y = place.y;
-				controleur.publishEvent(event);
+				controleur.publishEvent(place.x, place.y);
 			}
 		}
 		return true;
