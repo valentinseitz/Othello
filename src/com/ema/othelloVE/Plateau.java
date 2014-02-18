@@ -4,10 +4,10 @@ import com.ema.othelloVE.Jeton;
 
 public class Plateau {
 	private static final int NUM_LIGNES = 8;
-	private byte[][] othellier;
+	private Jeton[][] othellier;
 
 	public Plateau() {
-		othellier = new byte[NUM_LIGNES][NUM_LIGNES];
+		othellier = new Jeton[NUM_LIGNES][NUM_LIGNES];
 	}
 
 	public Plateau(Plateau plateau) {
@@ -32,7 +32,7 @@ public class Plateau {
 		}
 	}
 
-	public void setPlateau(int i, int j, byte couleur) {
+	public void setPlateau(int i, int j, Jeton couleur) {
 		this.othellier[i][j] = couleur;
 	}
 
@@ -40,13 +40,13 @@ public class Plateau {
 		return NUM_LIGNES;
 	}
 
-	public byte getJeton(int x, int y) { // retourne la couleur du jeton présent
+	public Jeton getJeton(int x, int y) { // retourne la couleur du jeton présent
 											// sur le plateau aux coordonnées
 											// x,y
 		return othellier[x][y];
 	}
 
-	public int nombreJetons(int couleur) { // retourne le nombre de jetons, de
+	public int nombreJetons(Jeton couleur) { // retourne le nombre de jetons, de
 											// la couleur donnée, présents sur
 											// le plateau
 		int nb = 0;

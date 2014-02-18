@@ -19,7 +19,7 @@ import android.widget.TextView;
 	    
 	    private int nbBlancs;
 	    private int nbNoirs;
-	    private byte couleurEnCours;
+	    private Jeton couleurEnCours;
 	    
 	    private String msgFin;
 
@@ -57,7 +57,7 @@ import android.widget.TextView;
 	        msgFin="";
 	    }
 
-	    public void setScore(int blancs, int noirs, byte courant)
+	    public void setScore(int blancs, int noirs, Jeton courant)
 	    {
 	        nbBlancs = blancs;
 	        nbNoirs = noirs;
@@ -65,7 +65,7 @@ import android.widget.TextView;
 	    }
 	    
 	    
-	    public void setScoreFin(String msg,int blancs, int noirs, byte courant)
+	    public void setScoreFin(String msg,int blancs, int noirs, Jeton courant)
 	    { 	nbBlancs = blancs;
         	nbNoirs = noirs;
         	couleurEnCours=courant;

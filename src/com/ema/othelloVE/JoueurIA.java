@@ -23,7 +23,7 @@ import android.util.Log;
 	   
 	   private final String TAG = JoueurIA.class.getSimpleName();
 
-	    public JoueurIA(byte couleur, Plateau plateau, int niveau, ControleurJeu control)
+	    public JoueurIA(Jeton couleur, Plateau plateau, int niveau, ControleurJeu control)
 	    {
 	        super(couleur,plateau,true);
 	        force=niveau;

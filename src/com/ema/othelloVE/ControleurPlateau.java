@@ -2,7 +2,7 @@ package com.ema.othelloVE;
 
 public class ControleurPlateau {
 
-	public static boolean coupPossible(Plateau plateau, int x, int y, byte jeton) {
+	public static boolean coupPossible(Plateau plateau, int x, int y, Jeton jeton) {
 		boolean possible;
 
 		// Pourqu'il soit possible de placer le jeton, la place doit être vide
@@ -29,12 +29,12 @@ public class ControleurPlateau {
 	}
 
 	private static boolean droitePossible(Plateau plateau, int x, int y,
-			byte jeton, int dirX, int dirY) {
+			Jeton jeton, int dirX, int dirY) {
 		boolean possible;
 		int distance;
 		int droiteX;
 		int droiteY;
-		byte jetonATester;
+		Jeton jetonATester;
 		boolean continuer;
 
 		continuer = true;
@@ -53,13 +53,13 @@ public class ControleurPlateau {
 				jetonATester = plateau.getJeton(droiteX, droiteY);
 				// Selon le type de jeton
 				switch (jetonATester) {
-				case Jeton.VIDE:
+				case VIDE:
 					// Si l'on rencontre un jeton vide la droite est impossible
 					possible = false;
 					continuer = false;
 					break;
-				case Jeton.NOIR:
-				case Jeton.BLANC:
+				case NOIR:
+				case BLANC:
 					// Un jeton de joueur
 					if (jetonATester == jeton) {
 						// Si c'est un jeton du même jeton il faut qu'il y en
@@ -109,10 +109,10 @@ public class ControleurPlateau {
 
 	private static void retourneDroite(Plateau plateau, int x, int y, int dirX,
 			int dirY) {
-		byte jeton;
+		Jeton jeton;
 		int droiteX;
 		int droiteY;
-		byte jetonARetourner;
+		Jeton jetonARetourner;
 		boolean continuer;
 
 		droiteX = x;
@@ -125,12 +125,12 @@ public class ControleurPlateau {
 			jetonARetourner = plateau.getJeton(droiteX, droiteY);
 			// Selon le type de jeton
 			switch (jetonARetourner) {
-			case Jeton.VIDE:
+			case VIDE:
 				// Si l'on rencontre un jeton vide on est en boit de droite
 				continuer = false;
 				break;
-			case Jeton.NOIR:
-			case Jeton.BLANC:
+			case NOIR:
+			case BLANC:
 				// Un jeton de joueur
 				if (jetonARetourner == jeton) {
 					// Si c'est un jeton du même jeton il faut qu'il y en ait au
@@ -150,7 +150,7 @@ public class ControleurPlateau {
 	}
 
 	public static int nbRetournementsPossibles(Plateau plateau, int x, int y,
-			byte jeton) {
+			Jeton jeton) {
 		int nb = 0;
 
 		for (int i = -1; i <= 1; i++) {
@@ -168,12 +168,12 @@ public class ControleurPlateau {
 	}
 
 	private static int nbPossibleSurDroite(Plateau plateau, int x, int y,
-			byte jeton, int dirX, int dirY) {
+			Jeton jeton, int dirX, int dirY) {
 		int nb = 0;
 
 		int droiteX;
 		int droiteY;
-		byte jetonATester;
+		Jeton jetonATester;
 		boolean continuer;
 
 		droiteX = x;
@@ -188,13 +188,13 @@ public class ControleurPlateau {
 				jetonATester = plateau.getJeton(droiteX, droiteY);
 				// Selon le type de jeton
 				switch (jetonATester) {
-				case Jeton.VIDE:
+				case VIDE:
 					// Si l'on rencontre un jeton vide on est en boit de droite
 					nb = 0;
 					continuer = false;
 					break;
-				case Jeton.NOIR:
-				case Jeton.BLANC:
+				case NOIR:
+				case BLANC:
 					// Un jeton de joueur
 					if (jetonATester == jeton) {
 						// Si c'est un jeton du même jeton il faut qu'il y en
@@ -218,7 +218,7 @@ public class ControleurPlateau {
 		return nb;
 	}
 
-	public static boolean peutJouer(Plateau plateau, byte jeton) {
+	public static boolean peutJouer(Plateau plateau, Jeton jeton) {
 		boolean possible;
 
 		possible = false;

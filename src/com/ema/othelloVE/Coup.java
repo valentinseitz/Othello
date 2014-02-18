@@ -5,9 +5,9 @@ public class Coup {
 
 	private int lig;
 	private int col;
-	private byte couleur;
+	private Jeton couleur;
 	
-	public Coup(int l, int c, byte codeCouleur) 
+	public Coup(int l, int c, Jeton codeCouleur) 
 	{	lig=l;
 		col=c;
 		couleur = codeCouleur;
@@ -21,7 +21,7 @@ public class Coup {
 	{ 	return(col);
 	}
 	
-	public byte getCouleur(){
+	public Jeton getCouleur(){
 		return(couleur);
 	}
 	

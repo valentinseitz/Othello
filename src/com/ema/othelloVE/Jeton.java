@@ -1,25 +1,44 @@
 package com.ema.othelloVE;
 
-public class Jeton {
+import android.graphics.Color;
 
-	public static final byte BLANC = 1;
-	public static final byte NOIR = 2;
-	public static final byte VIDE = 0;
+public enum Jeton {
 
-	public static byte jetonAdversaire(byte jeton) {
-		byte jetonAdversaire;
-		switch (jeton) {
+	BLANC, NOIR, VIDE, INEXISTANT;
+	
+	public Jeton getAdversaire(){
+		Jeton adversaire;
+		switch (this) {
 		case BLANC:
-			jetonAdversaire = NOIR;
+			adversaire = NOIR;
 			break;
 		case NOIR:
-			jetonAdversaire = BLANC;
+			adversaire = BLANC;
 			break;
 		default:
-			jetonAdversaire = VIDE;
+			adversaire = INEXISTANT;
 			break;
 		}
-		return jetonAdversaire;
+		return adversaire;
+	}
+	
+	public int getCouleur(){
+		int couleur;
+		switch (this) {
+		case BLANC:
+			couleur = Color.WHITE;
+			break;
+		case NOIR:
+			couleur = Color.BLACK;
+			break;
+		case VIDE:
+			couleur = Color.GREEN;
+			break;
+		default:
+			couleur = Color.TRANSPARENT;
+			break;
+		}
+		return couleur;
 	}
 
 }

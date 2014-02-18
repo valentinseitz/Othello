@@ -96,7 +96,7 @@ public class IhmPlateau extends View {
 
 			for (int i = 0; i < NB_COL; i++) {
 				for (int j = 0; j < NB_LIG; j++) {
-					byte jeton = othellier.getJeton(i, j);
+					Jeton jeton = othellier.getJeton(i, j);
 					if( (jeton != Jeton.VIDE) || (lastCoup!=null && lastCoup.getLigne()== i && lastCoup.getColonne()==j)){
 						x = (i * tailleGrille) + tailleGrille / 2;
 						y = (j * tailleGrille) + tailleGrille / 2;
@@ -108,17 +108,11 @@ public class IhmPlateau extends View {
 		Log.v(this.toString(), "drawButtons <<");
 	}
 
-	protected void afficheJeton(Canvas aCanvas, int aX, int aY, byte aColor) {
+	protected void afficheJeton(Canvas aCanvas, int aX, int aY, Jeton aColor) {
 		Log.v(this.toString(), "drawButton");
 		Paint paint = new Paint();
 
-		if (aColor == Jeton.NOIR) {
-			paint.setColor(Color.BLACK);
-		} else if (aColor == Jeton.BLANC) {
-			paint.setColor(Color.WHITE);
-		} else if (aColor == Jeton.VIDE) {
-			 paint.setColor(Color.GREEN);
-		 }
+		paint.setColor(aColor.getCouleur());
 
 		aCanvas.drawCircle(aX, aY, tailleJeton, paint);
 	}
