@@ -1,9 +1,13 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.controler;
 
 import java.util.ArrayList;
 
-import com.ema.othelloVE.Jeton;
-import com.ema.othelloVE.Coup;
+import com.ema.othelloVE.gui.IhmPlateau;
+import com.ema.othelloVE.gui.IhmScore;
+import com.ema.othelloVE.model.Coup;
+import com.ema.othelloVE.model.Jeton;
+import com.ema.othelloVE.model.MyEvent;
+import com.ema.othelloVE.model.Plateau;
 
 import android.util.Log;
 

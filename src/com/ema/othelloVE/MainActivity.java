@@ -1,8 +1,10 @@
 package com.ema.othelloVE;
 
 
-import com.ema.othelloVE.ControleurJeu;
-import com.ema.othelloVE.IhmPlateau;
+import com.ema.othelloVE.controler.ControleurJeu;
+import com.ema.othelloVE.gui.IhmPlateau;
+import com.ema.othelloVE.gui.IhmScore;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;

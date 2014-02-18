@@ -1,4 +1,6 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.model;
+
+import com.ema.othelloVE.controler.Joueur;
 
 
 public class MyEvent {

@@ -1,7 +1,9 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.gui;
 
-import com.ema.othelloVE.Plateau;
-import com.ema.othelloVE.Jeton;
+import com.ema.othelloVE.controler.ControleurJeu;
+import com.ema.othelloVE.model.Coup;
+import com.ema.othelloVE.model.Jeton;
+import com.ema.othelloVE.model.Plateau;
 
 import android.content.Context;
 import android.graphics.Canvas;

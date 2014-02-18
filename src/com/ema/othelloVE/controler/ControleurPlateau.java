@@ -1,4 +1,7 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.controler;
+
+import com.ema.othelloVE.model.Jeton;
+import com.ema.othelloVE.model.Plateau;
 
 public class ControleurPlateau {
 

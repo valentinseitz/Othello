@@ -1,4 +1,4 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.model;
 
 import android.graphics.Color;
 

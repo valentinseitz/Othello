@@ -1,4 +1,4 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.controler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,10 +6,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+import com.ema.othelloVE.model.Coup;
+import com.ema.othelloVE.model.Jeton;
+import com.ema.othelloVE.model.Plateau;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class JoueurIA extends Joueur implements JoueurIAAction {
+public class JoueurIA extends Joueur {
 
 	private int force;
 	private Coup p;

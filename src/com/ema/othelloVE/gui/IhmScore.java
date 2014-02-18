@@ -1,6 +1,6 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.gui;
 
-import com.ema.othelloVE.Jeton;
+import com.ema.othelloVE.model.Jeton;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,6 +1,6 @@
-package com.ema.othelloVE;
+package com.ema.othelloVE.model;
 
-import com.ema.othelloVE.Jeton;
+import com.ema.othelloVE.model.Jeton;
 
 public class Plateau {
 	public static final int TAILLE = 8;
