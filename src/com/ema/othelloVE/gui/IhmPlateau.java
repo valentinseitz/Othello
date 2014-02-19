@@ -1,7 +1,6 @@
 package com.ema.othelloVE.gui;
 
 import com.ema.othelloVE.controler.ControleurJeu;
-import com.ema.othelloVE.model.Coup;
 import com.ema.othelloVE.model.Jeton;
 import com.ema.othelloVE.model.Plateau;
 
@@ -27,12 +26,10 @@ public class IhmPlateau extends View {
 	private int largeurPlateau;
 	private Plateau othellier;
 	private ControleurJeu controleur;
-	private Context context;
 
 
 	public IhmPlateau(Context aContext, AttributeSet aAttrs) {
 		super(aContext, aAttrs);
-		context=aContext;
 	}
 
 
@@ -47,8 +44,6 @@ public class IhmPlateau extends View {
 	protected void onDraw(Canvas aCanvas) {
 		int width = getWidth();
 		int height = getHeight();
-
-		Log.v(this.toString(), "onDraw " + width + height);
 
 		// orientation tablette
 		if (width > height) {
@@ -75,10 +70,8 @@ public class IhmPlateau extends View {
 
 		// affichage jetons
 		try {
-			
 			afficheJetons(aCanvas);
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
