@@ -28,7 +28,6 @@ public class IhmPlateau extends View {
 	private Plateau othellier;
 	private ControleurJeu controleur;
 	private Context context;
-	private Coup lastCoup;
 
 
 	public IhmPlateau(Context aContext, AttributeSet aAttrs) {
@@ -43,11 +42,6 @@ public class IhmPlateau extends View {
 
 	public void initPlateau(Plateau plateau) {
 		othellier = plateau;
-	}
-	
-	public void initlastCoup(Coup coup)
-	{
-		lastCoup=coup;
 	}
 
 	protected void onDraw(Canvas aCanvas) {
@@ -99,7 +93,7 @@ public class IhmPlateau extends View {
 			for (int i = 0; i < NB_COL; i++) {
 				for (int j = 0; j < NB_LIG; j++) {
 					Jeton jeton = othellier.getJeton(i, j);
-					if( (jeton != Jeton.VIDE) || (lastCoup!=null && lastCoup.getLigne()== i && lastCoup.getColonne()==j)){
+					if( (jeton != Jeton.VIDE)){
 						x = (i * tailleGrille) + tailleGrille / 2;
 						y = (j * tailleGrille) + tailleGrille / 2;
 						afficheJeton(aCanvas, x, y, jeton);
