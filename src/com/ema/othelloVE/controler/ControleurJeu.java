@@ -101,11 +101,15 @@ public class ControleurJeu implements Runnable {
 		ihmScore.setScore(plateau.nombreJetons(Jeton.BLANC),
 				plateau.nombreJetons(Jeton.NOIR), Jeton.NOIR);
 		updateUI();
-
-		if (joueurEnCours.isIA()) {
-			((JoueurIA) joueurEnCours).calculCoup();
-		}
 		while (!fin) {
+			if (joueurEnCours.isIA()) {
+				((JoueurIA) joueurEnCours).calculCoup();
+			}
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			MyEvent event = null;
 			synchronized (events) {
 				try {
@@ -113,60 +117,34 @@ public class ControleurJeu implements Runnable {
 						events.wait();
 					}
 					event = events.remove(0);
-					// L'evenement vient-il du joueur dont c'est le tour de
-					// jouer?
-					if (event.getJoueur() == joueurEnCours) {
-						// vérifier si coup valide
-						if (ControleurPlateau.coupPossible(plateau,
-								event.getX(), event.getY(),
-								joueurEnCours.getCouleur())) {
-							// mettre à jour le plateau par retournement des
-							// pions
-							// exemple : mise à jour du plateau par pion joué
-							// par l'humain :
-							plateau.setJeton(event.getX(), event.getY(),
-									joueurEnCours.getCouleur());
-							ControleurPlateau.retournePions(plateau,
-									event.getX(), event.getY());
-							// faire le changement du joueur courant
-							changeJoueurEnCours();
-
-							// mise à jour de l'affichage
-							updateUI();
-						}
-
-						// verification si joueur en cours peut jouer
-						if (!ControleurPlateau.peutJouer(plateau,
-								joueurEnCours.getCouleur())) {
-							// faire le changement du joueur courant
-							changeJoueurEnCours();
-							// mise à jour de l'affichage
-							updateUI();
-							// Si l'autre joueur non plus ne peut pas jouer,
-							// c'est
-							// forcément la fin de la partie
-							if (!ControleurPlateau.peutJouer(plateau,
-									joueurEnCours.getCouleur())) {
-								fin = true;
-							}
-						}
-
-						// si joueur en cours est de type IA : mettre à jour
-						// iaReflechi et lancer la demande de calcul du coup:
-						if (!fin && joueurEnCours.isIA()) {
-							((JoueurIA) joueurEnCours).calculCoup();
-						}
-					}
-
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+			// L'evenement vient-il du joueur dont c'est le tour de
+			// jouer?
+			if (event.getJoueur() == joueurEnCours) {
+				if (ControleurPlateau.nbRetournements(plateau, event.getX(),
+						event.getY(), joueurEnCours.getCouleur(), true) > 0) {
+					// faire le changement du joueur courant
+					changeJoueurEnCours();
+				}
 
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				// verification si joueur en cours peut jouer
+				if (!ControleurPlateau.peutJouer(plateau,
+						joueurEnCours.getCouleur())) {
+					// faire le changement du joueur courant
+					changeJoueurEnCours();
+					// Si l'autre joueur non plus ne peut pas jouer
+					if (!ControleurPlateau.peutJouer(plateau,
+							joueurEnCours.getCouleur())) {
+						// C'est forcément la fin de la partie
+						fin = true;
+					}
+				}
+				// mise à jour de l'affichage
+				updateUI();
+
 			}
 		}
 		// fin de partie : mise à jour de l'interface score
@@ -193,7 +171,7 @@ public class ControleurJeu implements Runnable {
 	}
 
 	public void publishEvent(int x, int y) {
-		if (!joueurEnCours.isIA()){
+		if (!joueurEnCours.isIA()) {
 			publishEvent(x, y, joueurEnCours);
 		}
 	}

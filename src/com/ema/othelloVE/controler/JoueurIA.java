@@ -91,7 +91,7 @@ public class JoueurIA extends Joueur {
 		Coup coup;
 		for (int i = 0; i < Plateau.TAILLE; i++) {
 			for (int j = 0; j < Plateau.TAILLE; j++) {
-				if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)) {
+				if (ControleurPlateau.nbRetournements(plateau, i, j, this.couleur, false) > 0) {
 					coord = new HeuristiqueCoord();
 					coord.setX(i);
 					coord.setY(j);
@@ -126,10 +126,9 @@ public class JoueurIA extends Joueur {
 		maxHeuristique = -1;
 		for (int i = 0; i < Plateau.TAILLE; i++) {
 			for (int j = 0; j < Plateau.TAILLE; j++) {
-				if (ControleurPlateau.coupPossible(plateau, i, j, this.couleur)) {
-					heuristique = ControleurPlateau.nbRetournementsPossibles(
-							plateau, i, j, this.couleur);
-					if (heuristique >= maxHeuristique) {
+					heuristique = ControleurPlateau.nbRetournements(
+							plateau, i, j, this.couleur, false);
+					if (heuristique > 0 && heuristique >= maxHeuristique) {
 						if (heuristique > maxHeuristique) {
 							possibles.clear();
 							maxHeuristique = heuristique;
@@ -140,8 +139,6 @@ public class JoueurIA extends Joueur {
 						coord.setHeuristique(heuristique);
 						possibles.add(coord);
 					}
-
-				}
 			}
 		}
 
