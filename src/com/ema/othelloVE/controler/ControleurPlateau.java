@@ -1,9 +1,27 @@
 package com.ema.othelloVE.controler;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.graphics.Point;
+
 import com.ema.othelloVE.model.Jeton;
 import com.ema.othelloVE.model.Plateau;
 
 public class ControleurPlateau {
+	
+	public static List<Point> coupsPossibles(Plateau plateau, Jeton jeton){
+		List<Point> coupsPossibles = new ArrayList<Point>();
+		for (int i = 0; i < Plateau.TAILLE; i++) {
+			for (int j = 0; j < Plateau.TAILLE; j++) {
+				// Une cellule adjacente?
+				if (nbRetournements(plateau, i, j, jeton, false) > 0){
+					coupsPossibles.add(new Point(i,j));
+				}
+			}
+		}
+		return coupsPossibles;
+	}
 
 	public static boolean peutJouer(Plateau plateau, Jeton jeton) {
 		boolean possible;
