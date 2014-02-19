@@ -3,22 +3,22 @@ package com.ema.othelloVE.model;
 
 public class Coup {
 
-	private int lig;
-	private int col;
+	private int x;
+	private int y;
 	private Jeton couleur;
 	
-	public Coup(int l, int c, Jeton codeCouleur) 
-	{	lig=l;
-		col=c;
+	public Coup(int x, int y, Jeton codeCouleur) 
+	{	this.x=x;
+		this.y=y;
 		couleur = codeCouleur;
 	}
 	
-	public int getLigne()
-	{ 	return(lig);
+	public int getX()
+	{ 	return(x);
 	}
 
-	public int getColonne()
-	{ 	return(col);
+	public int getY()
+	{ 	return(y);
 	}
 	
 	public Jeton getCouleur(){
