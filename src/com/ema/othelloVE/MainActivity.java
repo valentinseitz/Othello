@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
 
 	private static final int MENU_IA_BLANC = 10;
 	private static final int MENU_IA_NOIR = 11;
+	private static final int MENU_BOTH_IA = 12;
 
 	// String for menu items
 	private static final String QUIT = "Quit";
@@ -30,10 +31,12 @@ public class MainActivity extends Activity {
 	private static final String NEW_GAME3 = "Nouveau Jeu - Expert";
 	private static final String IA_BLANC = "IA est Blanc";
 	private static final String IA_NOIR = "IA est Noir";
+	private static final String IA_BOTH = "IA vs IA";
 
 	private ControleurJeu controlJeu = null;
 	private boolean isIANoir = false;
 	private boolean isIA = false;
+	private boolean bothIA = false;
 	private IhmPlateau ihm = null;
 
 	private final String TAG = MainActivity.class.getSimpleName();
@@ -93,6 +96,7 @@ public class MainActivity extends Activity {
 		aMenu.add(0, MENU_NEW_GAME_LEVEL3, 0, NEW_GAME3);
 		aMenu.add(0, MENU_IA_BLANC, 0, IA_BLANC);
 		aMenu.add(0, MENU_IA_NOIR, 0, IA_NOIR);
+		aMenu.add(0, MENU_BOTH_IA, 0, IA_BOTH);
 
 		return true;
 	}
@@ -100,13 +104,13 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem aItem) {
 		switch (aItem.getItemId()) {
 		case MENU_NEW_GAME_LEVEL1:
-			nouveauJeu(MENU_NEW_GAME_LEVEL1, isIANoir);
+			nouveauJeu(MENU_NEW_GAME_LEVEL1, isIANoir, bothIA);
 			break;
 		case MENU_NEW_GAME_LEVEL2:
-			nouveauJeu(MENU_NEW_GAME_LEVEL2, isIANoir);
+			nouveauJeu(MENU_NEW_GAME_LEVEL2, isIANoir, bothIA);
 			break;
 		case MENU_NEW_GAME_LEVEL3:
-			nouveauJeu(MENU_NEW_GAME_LEVEL3, isIANoir);
+			nouveauJeu(MENU_NEW_GAME_LEVEL3, isIANoir, bothIA);
 			break;
 		case MENU_IA_BLANC:
 			isIANoir = false;
@@ -116,6 +120,9 @@ public class MainActivity extends Activity {
 			isIANoir = true;
 			isIA = true;
 			break;
+		case MENU_BOTH_IA:
+			bothIA = true;
+			break;
 		case MENU_QUIT:
 			finish();
 			break;
@@ -123,9 +130,13 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	private void nouveauJeu(int level, boolean isIANoir) {
+	private void nouveauJeu(int level, boolean isIANoir, boolean bothIA) {
 		setContentView(R.layout.activity_main);
-		controlJeu = new ControleurJeu(level, isIANoir, isIA);
+		if (!bothIA) {
+			controlJeu = new ControleurJeu(level, isIANoir, isIA);
+		} else {
+			controlJeu = new ControleurJeu(level);
+		}
 		ihm = (IhmPlateau) findViewById(R.id.ihmPlateau1);
 		controlJeu.setIhm(ihm);
 		ihm.setControleur(controlJeu);

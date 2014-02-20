@@ -26,6 +26,14 @@ public class ControleurJeu implements Runnable {
 
 	private final String TAG = ControleurJeu.class.getSimpleName();
 
+	public ControleurJeu(int level) {
+		niveauIA = level;
+		plateau = new Plateau();
+		joueur1 = new JoueurIA(Jeton.NOIR, plateau, niveauIA, this);
+		joueur2 = new JoueurIA(Jeton.BLANC, plateau, niveauIA, this);
+		joueurEnCours = joueur1;
+	}
+
 	public ControleurJeu(int level, boolean IANoir, boolean IA) {
 		// initialisation du plateau
 		// nitialisationdes joueurs en fonction de la sélection de l'interface

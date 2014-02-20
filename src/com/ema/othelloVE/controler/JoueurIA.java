@@ -101,37 +101,40 @@ public class JoueurIA extends Joueur {
 										// retournements
 										// sur arbre de recherche développé à 1
 										// niveau
-		List<Point> possibles = new ArrayList<Point>();
-		int heuristique;
-		int maxHeuristique;
-		Random rand = new Random();
-		int index;
-		Coup coup;
-
-		maxHeuristique = -1;
-		for (int i = 0; i < Plateau.TAILLE; i++) {
-			for (int j = 0; j < Plateau.TAILLE; j++) {
-				heuristique = ControleurPlateau.nbRetournements(plateau, i, j,
-						this.couleur, false);
-				if (heuristique > 0 && heuristique >= maxHeuristique) {
-					if (heuristique > maxHeuristique) {
-						possibles.clear();
-						maxHeuristique = heuristique;
-					}
-					possibles.add(new Point(i, j));
-				}
-			}
-		}
-
-		if (possibles.size() > 0) {
-			index = rand.nextInt(possibles.size());
-			coup = new Coup(possibles.get(index).x, possibles.get(index).y,
-					this.couleur);
-		} else {
-			coup = null;
-		}
-
-		return coup;
+		// Retourne le meilleur coup obtenu par recherche Minmax sur arbre de
+		// recherche développé à 2 ou 3 niveaux
+		return alphaBeta(this.plateau, this.couleur, 1);
+//		List<Point> possibles = new ArrayList<Point>();
+//		int heuristique;
+//		int maxHeuristique;
+//		Random rand = new Random();
+//		int index;
+//		Coup coup;
+//
+//		maxHeuristique = -1;
+//		for (int i = 0; i < Plateau.TAILLE; i++) {
+//			for (int j = 0; j < Plateau.TAILLE; j++) {
+//				heuristique = ControleurPlateau.nbRetournements(plateau, i, j,
+//						this.couleur, false);
+//				if (heuristique > 0 && heuristique >= maxHeuristique) {
+//					if (heuristique > maxHeuristique) {
+//						possibles.clear();
+//						maxHeuristique = heuristique;
+//					}
+//					possibles.add(new Point(i, j));
+//				}
+//			}
+//		}
+//
+//		if (possibles.size() > 0) {
+//			index = rand.nextInt(possibles.size());
+//			coup = new Coup(possibles.get(index).x, possibles.get(index).y,
+//					this.couleur);
+//		} else {
+//			coup = null;
+//		}
+//
+//		return coup;
 
 	}
 
