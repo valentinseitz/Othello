@@ -1,8 +1,6 @@
 package com.ema.othelloVE.controler;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +10,6 @@ import com.ema.othelloVE.model.Plateau;
 
 import android.graphics.Point;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class JoueurIA extends Joueur {
 
@@ -23,8 +20,6 @@ public class JoueurIA extends Joueur {
 	private static final int MOYEN = 2;
 	private static final int EXPERT = 3;
 	private ControleurJeu controlJeu;
-
-	private final String TAG = JoueurIA.class.getSimpleName();
 
 	public JoueurIA(Jeton couleur, Plateau plateau, int niveau,
 			ControleurJeu control) {
@@ -280,8 +275,7 @@ public class JoueurIA extends Joueur {
 
 		public boolean aFilsSuivant() {
 			// Il y a un autre coup possible
-			return coupCourant + 1 < coupsPossibles.size()
-					|| (coupCourant == -1 && coupsPossibles.size() == 0);
+			return coupCourant + 1 < coupsPossibles.size();
 		}
 
 		public Noeud getFilsSuivant() {
@@ -289,15 +283,10 @@ public class JoueurIA extends Joueur {
 			if (aFilsSuivant()) {
 				// On passe sur le coup suivant
 				coupCourant++;
-				if (coupCourant < coupsPossibles.size()) {
 					// On crée un nouveau noeud qui correspond au coup
-					fils = new Noeud(this.plateau,
-							coupsPossibles.get(coupCourant), joueur,
-							this.profondeur, !max);
-				} else {
-					fils = new Noeud(this.plateau, null, joueur, this.profondeur,
-							!max);
-				}
+				fils = new Noeud(this.plateau,
+						coupsPossibles.get(coupCourant), joueur,
+						this.profondeur, !max);
 			} else {
 				// Il n'y a pas de fils suivant
 				fils = null;
