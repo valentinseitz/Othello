@@ -214,7 +214,7 @@ public class JoueurIA extends Joueur {
 		return heuristique;
 	}
 
-	class Noeud {
+	private class Noeud {
 
 		boolean max;
 		int profondeur;
@@ -275,7 +275,7 @@ public class JoueurIA extends Joueur {
 
 		public boolean aFilsSuivant() {
 			// Il y a un autre coup possible
-			return coupCourant + 1 < coupsPossibles.size();
+			return coupCourant + 1 < coupsPossibles.size() || (coupCourant==-1 && coupsPossibles.size()==0);
 		}
 
 		public Noeud getFilsSuivant() {
@@ -284,9 +284,15 @@ public class JoueurIA extends Joueur {
 				// On passe sur le coup suivant
 				coupCourant++;
 					// On crée un nouveau noeud qui correspond au coup
-				fils = new Noeud(this.plateau,
-						coupsPossibles.get(coupCourant), joueur,
-						this.profondeur, !max);
+				if (coupCourant < coupsPossibles.size()){
+					fils = new Noeud(this.plateau,
+							coupsPossibles.get(coupCourant), joueur,
+							this.profondeur, !max);
+				} else {
+					fils = new Noeud(this.plateau,
+							null, joueur,
+							this.profondeur, !max);
+				}
 			} else {
 				// Il n'y a pas de fils suivant
 				fils = null;
