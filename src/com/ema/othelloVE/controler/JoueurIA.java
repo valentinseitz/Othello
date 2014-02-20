@@ -10,6 +10,7 @@ import com.ema.othelloVE.model.Plateau;
 
 import android.graphics.Point;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class JoueurIA extends Joueur {
 
@@ -104,45 +105,12 @@ public class JoueurIA extends Joueur {
 		// Retourne le meilleur coup obtenu par recherche Minmax sur arbre de
 		// recherche développé à 2 ou 3 niveaux
 		return alphaBeta(this.plateau, this.couleur, 1);
-//		List<Point> possibles = new ArrayList<Point>();
-//		int heuristique;
-//		int maxHeuristique;
-//		Random rand = new Random();
-//		int index;
-//		Coup coup;
-//
-//		maxHeuristique = -1;
-//		for (int i = 0; i < Plateau.TAILLE; i++) {
-//			for (int j = 0; j < Plateau.TAILLE; j++) {
-//				heuristique = ControleurPlateau.nbRetournements(plateau, i, j,
-//						this.couleur, false);
-//				if (heuristique > 0 && heuristique >= maxHeuristique) {
-//					if (heuristique > maxHeuristique) {
-//						possibles.clear();
-//						maxHeuristique = heuristique;
-//					}
-//					possibles.add(new Point(i, j));
-//				}
-//			}
-//		}
-//
-//		if (possibles.size() > 0) {
-//			index = rand.nextInt(possibles.size());
-//			coup = new Coup(possibles.get(index).x, possibles.get(index).y,
-//					this.couleur);
-//		} else {
-//			coup = null;
-//		}
-//
-//		return coup;
-
 	}
 
 	private Coup calculCoupExpert() {
 		// Retourne le meilleur coup obtenu par recherche Minmax sur arbre de
 		// recherche développé à 2 ou 3 niveaux
 		return alphaBeta(this.plateau, this.couleur, 3);
-
 	}
 
 	private Coup alphaBeta(Plateau plateau, Jeton joueur, int profondeur) {
@@ -158,7 +126,7 @@ public class JoueurIA extends Joueur {
 				heuristique = alphaBeta(new Noeud(plateau, coup,
 						joueur, profondeur), Integer.MIN_VALUE,
 						Integer.MAX_VALUE);
-				if (heuristique > 0 && heuristique >= maxHeuristique) {
+				if (heuristique >= maxHeuristique) {
 					if (heuristique > maxHeuristique) {
 						meilleursPossibles.clear();
 						maxHeuristique = heuristique;
@@ -238,10 +206,10 @@ public class JoueurIA extends Joueur {
 			this.joueur = joueur;
 			// Quelle profondeur et quel joueur?
 			if (this.max) {
-				this.profondeur = profondeur;
+				this.profondeur = profondeur - 1;
 				joueurNoeud = this.joueur;
 			} else {
-				this.profondeur = profondeur - 1;
+				this.profondeur = profondeur;
 				joueurNoeud = this.joueur.getAdversaire();
 			}
 			// Clone du plateau
@@ -262,7 +230,7 @@ public class JoueurIA extends Joueur {
 
 		public boolean isFeuille() {
 			// La profondeur suivante est 0, on est donc sur la feuille
-			return profondeur == 1 && !this.max;
+			return profondeur <= 1 && !this.max;
 		}
 
 		public boolean isMax() {
@@ -278,7 +246,7 @@ public class JoueurIA extends Joueur {
 
 		public boolean aFilsSuivant() {
 			// Il y a un autre coup possible
-			return coupCourant + 1 < coupsPossibles.size() || (coupCourant==-1 && coupsPossibles.size()==0);
+			return !isFeuille() && coupCourant + 1 < coupsPossibles.size() || (coupCourant==-1 && coupsPossibles.size()==0);
 		}
 
 		public Noeud getFilsSuivant() {
