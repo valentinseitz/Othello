@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.ema.othelloVE.gui.IhmPlateau;
 import com.ema.othelloVE.gui.IhmScore;
-import com.ema.othelloVE.model.Coup;
 import com.ema.othelloVE.model.Jeton;
 import com.ema.othelloVE.model.MyEvent;
 import com.ema.othelloVE.model.Plateau;
@@ -111,41 +110,38 @@ public class ControleurJeu implements Runnable {
 				e.printStackTrace();
 			}
 			MyEvent event = null;
-			synchronized (events) {
-				try {
-					if (events.isEmpty()) {
-						events.wait();
+			while (event == null || event.getJoueur() != joueurEnCours) {
+				synchronized (events) {
+					try {
+						if (events.isEmpty()) {
+							events.wait();
+						}
+						event = events.remove(0);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
-					event = events.remove(0);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
 				}
 			}
-			// L'evenement vient-il du joueur dont c'est le tour de
-			// jouer?
-			if (event.getJoueur() == joueurEnCours) {
-				if (ControleurPlateau.nbRetournements(plateau, event.getX(),
-						event.getY(), joueurEnCours.getCouleur(), true) > 0) {
-					// faire le changement du joueur courant
-					changeJoueurEnCours();
-				}
+			if (ControleurPlateau.nbRetournements(plateau, event.getX(),
+					event.getY(), joueurEnCours.getCouleur(), true) > 0) {
+				// faire le changement du joueur courant
+				changeJoueurEnCours();
+			}
 
-				// verification si joueur en cours peut jouer
+			// verification si joueur en cours peut jouer
+			if (!ControleurPlateau.peutJouer(plateau,
+					joueurEnCours.getCouleur())) {
+				// faire le changement du joueur courant
+				changeJoueurEnCours();
+				// Si l'autre joueur non plus ne peut pas jouer
 				if (!ControleurPlateau.peutJouer(plateau,
 						joueurEnCours.getCouleur())) {
-					// faire le changement du joueur courant
-					changeJoueurEnCours();
-					// Si l'autre joueur non plus ne peut pas jouer
-					if (!ControleurPlateau.peutJouer(plateau,
-							joueurEnCours.getCouleur())) {
-						// C'est forcément la fin de la partie
-						fin = true;
-					}
+					// C'est forcément la fin de la partie
+					fin = true;
 				}
-				// mise à jour de l'affichage
-				updateUI();
-
 			}
+			// mise à jour de l'affichage
+			updateUI();
 		}
 		// fin de partie : mise à jour de l'interface score
 		updateMessageFin();
