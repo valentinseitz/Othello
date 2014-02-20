@@ -145,7 +145,9 @@ public class MainActivity extends Activity {
 
 		Context context = ihm.getContext();
 		CharSequence msg = " La partie commence  ! ";
-		if (isIA)
+		if (bothIA){
+			msg = msg + "(IA vs IA)";
+		}else if (isIA)
 			if (isIANoir)
 				msg = msg + "  IA est NOIR";
 			else
