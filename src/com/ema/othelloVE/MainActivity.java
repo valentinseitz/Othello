@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
 	private static final int MENU_NEW_GAME_LEVEL2 = 2;
 	private static final int MENU_NEW_GAME_LEVEL3 = 3;
 
+	private static final int MENU_IA_NONE = 9;
 	private static final int MENU_IA_BLANC = 10;
 	private static final int MENU_IA_NOIR = 11;
 	private static final int MENU_BOTH_IA = 12;
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
 	private static final String NEW_GAME1 = "Nouveau Jeu - Débutant";
 	private static final String NEW_GAME2 = "Nouveau Jeu - Moyen";
 	private static final String NEW_GAME3 = "Nouveau Jeu - Expert";
+	private static final String IA_NONE = "Joueur vs Joueur";
 	private static final String IA_BLANC = "IA est Blanc";
 	private static final String IA_NOIR = "IA est Noir";
 	private static final String IA_BOTH = "IA vs IA";
@@ -94,6 +96,7 @@ public class MainActivity extends Activity {
 		aMenu.add(0, MENU_NEW_GAME_LEVEL1, 0, NEW_GAME1);
 		aMenu.add(0, MENU_NEW_GAME_LEVEL2, 0, NEW_GAME2);
 		aMenu.add(0, MENU_NEW_GAME_LEVEL3, 0, NEW_GAME3);
+		aMenu.add(0, MENU_IA_NONE, 0, IA_NONE);
 		aMenu.add(0, MENU_IA_BLANC, 0, IA_BLANC);
 		aMenu.add(0, MENU_IA_NOIR, 0, IA_NOIR);
 		aMenu.add(0, MENU_BOTH_IA, 0, IA_BOTH);
@@ -112,11 +115,18 @@ public class MainActivity extends Activity {
 		case MENU_NEW_GAME_LEVEL3:
 			nouveauJeu(MENU_NEW_GAME_LEVEL3, isIANoir, bothIA);
 			break;
+		case MENU_IA_NONE:
+			bothIA = false;
+			isIANoir = false;
+			isIA = false;
+			break;
 		case MENU_IA_BLANC:
+			bothIA = false;
 			isIANoir = false;
 			isIA = true;
 			break;
 		case MENU_IA_NOIR:
+			bothIA = false;
 			isIANoir = true;
 			isIA = true;
 			break;
