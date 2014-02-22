@@ -165,7 +165,7 @@ public class JoueurIA extends Joueur {
 						// Coupure beta
 						coupe = true;
 					} else {
-						beta = Math.min(beta, noeud.getHeuristique());
+						beta = Math.min(beta, heuristique);
 					}
 				}
 			} else {
@@ -177,7 +177,7 @@ public class JoueurIA extends Joueur {
 						// Coupure beta
 						coupe = true;
 					} else {
-						alpha = Math.max(alpha, noeud.getHeuristique());
+						alpha = Math.max(alpha, heuristique);
 					}
 				}
 			}
