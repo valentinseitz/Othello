@@ -130,19 +130,19 @@ public class ControleurJeu implements Runnable {
 					}
 				}
 			}
-			if (ControleurPlateau.nbRetournements(plateau, event.getX(),
-					event.getY(), joueurEnCours.getCouleur(), true) > 0) {
+			if (plateau.coupPossible(event.getX(),
+					event.getY(), joueurEnCours.getCouleur(), true)) {
 				// faire le changement du joueur courant
 				changeJoueurEnCours();
 			}
 
 			// verification si joueur en cours peut jouer
-			if (!ControleurPlateau.peutJouer(plateau,
+			if (!plateau.peutJouer(
 					joueurEnCours.getCouleur())) {
 				// faire le changement du joueur courant
 				changeJoueurEnCours();
 				// Si l'autre joueur non plus ne peut pas jouer
-				if (!ControleurPlateau.peutJouer(plateau,
+				if (!plateau.peutJouer(
 						joueurEnCours.getCouleur())) {
 					// C'est forcément la fin de la partie
 					fin = true;

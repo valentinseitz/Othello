@@ -10,7 +10,6 @@ import com.ema.othelloVE.model.Plateau;
 
 import android.graphics.Point;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class JoueurIA extends Joueur {
 
@@ -75,26 +74,16 @@ public class JoueurIA extends Joueur {
 	private Coup calculCoupDebutant() { // retourne un coup possible choisi
 										// aléatoirement
 		List<Point> possibles = new ArrayList<Point>();
-		Random rand = new Random();
-		int index;
-		Coup coup;
 		for (int i = 0; i < Plateau.TAILLE; i++) {
 			for (int j = 0; j < Plateau.TAILLE; j++) {
-				if (ControleurPlateau.nbRetournements(plateau, i, j,
-						this.couleur, false) > 0) {
+				if (plateau.coupPossible(i, j,
+						this.couleur, false)) {
 					possibles.add(new Point(i, j));
 				}
 			}
 		}
-		if (possibles.size() > 0) {
-			index = rand.nextInt(possibles.size());
-			coup = new Coup(possibles.get(index).x, possibles.get(index).y,
-					this.couleur);
-		} else {
-			coup = null;
-		}
 
-		return coup;
+		return random(possibles);
 
 	}
 
@@ -121,7 +110,7 @@ public class JoueurIA extends Joueur {
 		int maxHeuristique;
 
 		maxHeuristique = Integer.MIN_VALUE;
-		possibles = ControleurPlateau.coupsPossibles(plateau, joueur);
+		possibles = plateau.coupsPossibles(joueur);
 		for (Point coup : possibles){
 				heuristique = alphaBeta(new Noeud(plateau, coup,
 						joueur, profondeur), Integer.MIN_VALUE,
@@ -134,19 +123,7 @@ public class JoueurIA extends Joueur {
 					meilleursPossibles.add(coup);
 				}
 		}
-
-		Random rand = new Random();
-		int index;
-		Coup coup;
-		if (meilleursPossibles.size() > 0) {
-			index = rand.nextInt(meilleursPossibles.size());
-			coup = new Coup(meilleursPossibles.get(index).x, meilleursPossibles.get(index).y,
-					this.couleur);
-		} else {
-			coup = null;
-		}
-
-		return coup;
+		return random(meilleursPossibles);
 	}
 
 	private int alphaBeta(Noeud noeud, int alpha, int beta) {
@@ -184,6 +161,20 @@ public class JoueurIA extends Joueur {
 		}
 		return heuristique;
 	}
+	
+	private Coup random(List<Point> coupsPossibles){
+		Random rand = new Random();
+		int index;
+		Coup coup;
+		if (coupsPossibles.size() > 0) {
+			index = rand.nextInt(coupsPossibles.size());
+			coup = new Coup(coupsPossibles.get(index).x, coupsPossibles.get(index).y, this.couleur);
+		} else {
+			coup = null;
+		}
+
+		return coup;
+	}
 
 	private class Noeud {
 
@@ -217,13 +208,12 @@ public class JoueurIA extends Joueur {
 			// Un coup à jouer?
 			// On joue le coup
 			if (coup != null) {
-				ControleurPlateau.nbRetournements(this.plateau, coup.x, coup.y,
+				this.plateau.coupPossible(coup.x, coup.y,
 						joueurNoeud, true);
 			}
 			//
 			// On demande les coups possibles de l'adversaire
-			coupsPossibles = ControleurPlateau.coupsPossibles(plateau,
-					joueurNoeud.getAdversaire());
+			coupsPossibles = plateau.coupsPossibles(joueurNoeud.getAdversaire());
 			// Pas encore de coup courant
 			coupCourant = -1;
 		}
