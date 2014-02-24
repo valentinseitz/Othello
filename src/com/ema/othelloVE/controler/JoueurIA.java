@@ -230,8 +230,7 @@ public class JoueurIA extends Joueur {
 
 		public int getHeuristique() {
 			// Le nombre de jeton du joueur, moins celui de son adversaire
-			return plateau.nombreJetons(joueur)
-					- plateau.nombreJetons(joueur.getAdversaire());
+			return plateau.getHeuristique(joueur);
 		}
 
 		public boolean aFilsSuivant() {

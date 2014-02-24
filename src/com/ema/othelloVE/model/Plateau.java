@@ -8,6 +8,19 @@ import android.graphics.Point;
 import com.ema.othelloVE.model.Jeton;
 
 public class Plateau {
+	private static final int FORT = 8;
+	private static final int X = 1;
+	private static final int C = 2;
+	private static final int NORMAL = 4;
+	private static final int[][] ponderation = {
+		{FORT,C,NORMAL,NORMAL,NORMAL,NORMAL,C,FORT},
+		{C,X,NORMAL,NORMAL,NORMAL,NORMAL,X,C},
+		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
+		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
+		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
+		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
+		{C,X,NORMAL,NORMAL,NORMAL,NORMAL,X,C},
+		{FORT,C,NORMAL,NORMAL,NORMAL,NORMAL,C,FORT}};
 	public static final int TAILLE = 8;
 	private Jeton[][] othellier;
 
@@ -162,6 +175,12 @@ public class Plateau {
 		}
 	
 		return possible;
+	}
+	
+	public int getHeuristique(Jeton couleur){
+		return nombreJetons(couleur) - nombreJetons(couleur.getAdversaire());
+		
+		
 	}
 
 }
