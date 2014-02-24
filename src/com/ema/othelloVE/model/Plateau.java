@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Point;
+import android.util.Log;
 
 import com.ema.othelloVE.model.Jeton;
 
 public class Plateau {
-	private static final int FORT = 8;
-	private static final int X = 1;
-	private static final int C = 2;
-	private static final int NORMAL = 4;
 	private static final int[][] ponderation = {
-		{FORT,C,NORMAL,NORMAL,NORMAL,NORMAL,C,FORT},
-		{C,X,NORMAL,NORMAL,NORMAL,NORMAL,X,C},
-		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
-		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
-		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
-		{NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL,NORMAL},
-		{C,X,NORMAL,NORMAL,NORMAL,NORMAL,X,C},
-		{FORT,C,NORMAL,NORMAL,NORMAL,NORMAL,C,FORT}};
+		{64,1,25,26,26,25,1,64},
+		{1,0,5,6,6,5,0,1},
+		{25,5,15,16,16,15,5,25},
+		{26,6,16,0,0,16,6,26},
+		{26,6,16,0,0,16,6,26},
+		{25,5,15,16,16,15,5,25},
+		{1,0,5,6,6,5,0,1},
+		{64,1,25,26,26,25,1,64}};
 	public static final int TAILLE = 8;
 	private Jeton[][] othellier;
 
@@ -87,7 +84,7 @@ public class Plateau {
 					// Une cellule adjacente?
 					if (i != 0 || j != 0) {
 						// La droite donnée par la cellule testée et la cellule adjacente est-elle possible?
-						possible = possible || coupPossible(x, y, jeton, i, j, retourner);
+						possible = coupPossible(x, y, jeton, i, j, retourner) || possible;
 					}
 				}
 			}
@@ -178,9 +175,34 @@ public class Plateau {
 	}
 	
 	public int getHeuristique(Jeton couleur){
-		return nombreJetons(couleur) - nombreJetons(couleur.getAdversaire());
+		int heuristique;
+		heuristique = ponderation(couleur) - ponderation(couleur.getAdversaire());
+//		String s = heuristique+"\n_________________";
+//		for (int i = 0; i < TAILLE; i++) {
+//			s += "\n|";
+//			for (int j = 0; j < TAILLE; j++) {
+//					s += othellier[i][j]+"|";
+//			}
+//		}
+//		Log.i("Plateau", s);
+		return heuristique;
 		
 		
+	}
+	
+	private int ponderation(Jeton couleur){
+		//Le nombre de jetons, de la couleur donnée, présents sur le plateau
+				int nb = 0;
+				synchronized (othellier) {
+					for (int i = 0; i < TAILLE; i++) {
+						for (int j = 0; j < TAILLE; j++) {
+							if (othellier[i][j] == couleur) {
+								nb += ponderation[i][j];
+							}
+						}
+					}
+				}
+				return nb;
 	}
 
 }
