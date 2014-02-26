@@ -10,14 +10,23 @@ import com.ema.othelloVE.model.Jeton;
 
 public class Plateau {
 	private static final int[][] ponderation = {
-		{64,1,25,26,26,25,1,64},
-		{1,0,5,6,6,5,0,1},
-		{25,5,15,16,16,15,5,25},
-		{26,6,16,0,0,16,6,26},
-		{26,6,16,0,0,16,6,26},
-		{25,5,15,16,16,15,5,25},
-		{1,0,5,6,6,5,0,1},
-		{64,1,25,26,26,25,1,64}};
+		{256,	1,		25,		26,		26,		25,		1,		256},
+		{1,		0,		5,		6,		6,		5,		0,		1},
+		{25,	5,		15,		16,		16,		15,		5,		25},
+		{26,	6,		16,		16,		16,		16,		6,		26},
+		{26,	6,		16,		16,		16,		16,		6,		26},
+		{25,	5,		15,		16,		16,		15,		5,		25},
+		{1,		0,		5,		6,		6,		5,		0,		1},
+		{256,	1,		25,		26,		26,		25,		1,		256}};
+	private static final int[][] pondeCoin = {
+		{32728,	8182,	4096,	2048,	1024,	512,	256,	128},
+		{8182,	64,		64,		64,		64,		64,		64,		64},
+		{4096,	64,		32,		32,		32,		32,		32,		32},
+		{2048,	64,		32,		16,		16,		16,		16,		16},
+		{1024,	64,		32,		16,		8,		8,		8,		8},
+		{512,	64,		32,		16,		8,		4,		4,		4},
+		{256,	64,		32,		16,		8,		4,		2,		2},
+		{128,	64,		32,		16,		8,		4,		2,		1}};
 	public static final int TAILLE = 8;
 	private Jeton[][] othellier;
 
@@ -176,20 +185,17 @@ public class Plateau {
 	
 	public int getHeuristique(Jeton couleur){
 		int heuristique;
-		heuristique = ponderation(couleur) - ponderation(couleur.getAdversaire());
-//		String s = heuristique+"\n_________________";
-//		for (int i = 0; i < TAILLE; i++) {
-//			s += "\n|";
-//			for (int j = 0; j < TAILLE; j++) {
-//					s += othellier[i][j]+"|";
-//			}
-//		}
-//		Log.i("Plateau", s);
+		heuristique = ponderation(couleur) + ponderationCoins(couleur) - ponderationCoins(couleur.getAdversaire());
 		return heuristique;
 		
 		
 	}
 	
+	/**
+	 * Pondération de base de la situation de la grille (prend en compte l'adversaire, pondérations d'accès aux coins)
+	 * @param couleur Couleur pour laquelle on souhaite la pondération de la grille
+	 * @return La pondération de la grille pour un joueur donné
+	 */
 	private int ponderation(Jeton couleur){
 		//Le nombre de jetons, de la couleur donnée, présents sur le plateau
 				int nb = 0;
@@ -198,11 +204,53 @@ public class Plateau {
 						for (int j = 0; j < TAILLE; j++) {
 							if (othellier[i][j] == couleur) {
 								nb += ponderation[i][j];
+							} else if (othellier[i][j] == couleur.getAdversaire()){
+								nb -= ponderation[i][j];
 							}
 						}
 					}
 				}
 				return nb;
+	}
+	
+	/**
+	 * Pondération du "bétonnage" de coin, placement de pions imprenables (prend en compte l'adversaire, à partir des coins)
+	 * @param couleur Couleur pour laquelle on souhaite la pondération de la grille
+	 * @return La pondération de la grille pour un joueur donné
+	 */
+	private int ponderationCoins(Jeton couleur){
+		int ponde = 0;
+		int[][] coin = {{0,0,1,1},{0,7,1,-1},{7,0,-1,1},{7,7,-1,-1}};
+		int max;
+		Jeton couleurQuart;
+		//POur chaque coinde l'othellier
+		for (int c = 0; c < coin.length; c++){
+			max = TAILLE;
+			//Couleur de la case de coin
+			couleurQuart = othellier[coin[c][0]][coin[c][1]];
+			//Case vide?
+			if (couleurQuart != Jeton.VIDE){
+				//Case non vide
+				for (int i = 0; i < TAILLE; i++) {
+					for (int j = 0; j < TAILLE; j++) {
+						//Cette case appartient-elle au détenteur de la case de coin?
+						if (j < max && othellier[coin[c][0]+(coin[c][2]*i)][coin[c][1]+(coin[c][3]*j)] == couleurQuart) {
+							//Ce joueur ou l'adversaire
+							if (couleurQuart == couleur){
+								//Le joueur, c'est bien pour lui (+)
+								ponde += pondeCoin[i][j];
+							} else {
+								//L'adversaire, c'est mauvais pour le joueur (-)
+								ponde -= pondeCoin[i][j];
+							}
+						} else {
+							max = Math.min(max, j);
+						}
+					}
+				}
+			}
+		}
+		return ponde;
 	}
 
 }
