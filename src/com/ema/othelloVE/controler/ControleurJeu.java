@@ -16,10 +16,6 @@ public class ControleurJeu implements Runnable {
 	private IhmPlateau ihmPlateau;
 	private IhmScore ihmScore;
 
-	private int niveauIA;
-	private boolean isIANoir;
-	private boolean isIA;
-
 	private Joueur joueur1;
 	private Joueur joueur2;
 	private Joueur joueurEnCours;
@@ -27,10 +23,9 @@ public class ControleurJeu implements Runnable {
 	private final String TAG = ControleurJeu.class.getSimpleName();
 
 	public ControleurJeu(int level) {
-		niveauIA = level;
 		plateau = new Plateau();
-		joueur1 = new JoueurIA(Jeton.NOIR, plateau, niveauIA, this);
-		joueur2 = new JoueurIA(Jeton.BLANC, plateau, niveauIA, this);
+		joueur1 = new JoueurIA(Jeton.NOIR, plateau, level, this);
+		joueur2 = new JoueurIA(Jeton.BLANC, plateau, level, this);
 		joueurEnCours = joueur1;
 	}
 
@@ -38,23 +33,20 @@ public class ControleurJeu implements Runnable {
 		// initialisation du plateau
 		// nitialisationdes joueurs en fonction de la sélection de l'interface
 		// utilisateur
-		niveauIA = level;
-		isIANoir = IANoir;
-		isIA = IA;
 		plateau = new Plateau();
 
-		if (!isIA) {
+		if (!IA) {
 			joueur1 = new Joueur(Jeton.NOIR, plateau, false);
 			joueur2 = new Joueur(Jeton.BLANC, plateau, false);
 			joueurEnCours = joueur1;
 		} else {
-			if (isIANoir) {
-				joueur1 = new JoueurIA(Jeton.NOIR, plateau, niveauIA, this);
+			if (IANoir) {
+				joueur1 = new JoueurIA(Jeton.NOIR, plateau, level, this);
 				joueur2 = new Joueur(Jeton.BLANC, plateau, false);
 				joueurEnCours = joueur1;
 
 			} else {
-				joueur2 = new JoueurIA(Jeton.BLANC, plateau, niveauIA, this);
+				joueur2 = new JoueurIA(Jeton.BLANC, plateau, level, this);
 				joueur1 = new Joueur(Jeton.NOIR, plateau, false);
 				joueurEnCours = joueur1;
 			}
@@ -79,16 +71,6 @@ public class ControleurJeu implements Runnable {
 		ihmScore.setScore(plateau.nombreJetons(Jeton.BLANC),
 				plateau.nombreJetons(Jeton.NOIR), Jeton.NOIR);
 		updateUI();
-	}
-
-	public void changeIACouleur(boolean IANoir) {
-		// modification de la couleur de l'automate par demande de l'interface
-		isIANoir = IANoir;
-	}
-
-	public void changeNiveauIA(int level) {
-		// modification du niveau de l'automate par demande de l'interface
-		niveauIA = level;
 	}
 
 	private ArrayList<MyEvent> events = new ArrayList<MyEvent>();

@@ -110,195 +110,195 @@
     </display>  
   </enumeration>  
   <association id="13">    
-    <bendpoint x="932" y="209"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="14" name="joueur2"/>      
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="14" name="joueur"/>      
       <multiplicity id="15" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="16">    
-    <bendpoint x="1082" y="69"/>    
-    <bendpoint x="953" y="69"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="17" name="controlJeu"/>      
-      <multiplicity id="18" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="17" name="othellier"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="19">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="20" name="events"/>      
-      <multiplicity id="21" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="22">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
-  <association id="23">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="24" name="joueur"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <bendpoint x="1108" y="198"/>    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="27" name="plateau"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <nesting id="29">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </nesting>  
-  <association id="30">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="31" name="plateau"/>      
-      <multiplicity id="32" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="33">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="34" name="othellier"/>      
-      <multiplicity id="35" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="36">    
-    <bendpoint x="695" y="551"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="37" name="couleurEnCours"/>      
-      <multiplicity id="38" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="39">    
-    <bendpoint x="412" y="424"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="40" name="ihmPlateau"/>      
-      <multiplicity id="41" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="42">    
-    <bendpoint x="929" y="122"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="43" name="joueur1"/>      
-      <multiplicity id="44" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="45">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="46">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="47" name="joueur"/>      
-      <multiplicity id="48" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="49">    
-    <bendpoint x="255" y="438"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="50" name="ihm"/>      
-      <multiplicity id="51" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="52">    
-    <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="53" name="couleur"/>      
-      <multiplicity id="54" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="55">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="56" name="controlJeu"/>      
-      <multiplicity id="57" minimum="0" maximum="1"/>    
+    <bendpoint x="1082" y="69"/>    
+    <bendpoint x="953" y="69"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="20" name="controlJeu"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="58">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="59" name="ihmScore"/>      
-      <multiplicity id="60" minimum="0" maximum="1"/>    
+  <association id="22">    
+    <bendpoint x="439" y="595"/>    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="23" name="controleur"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="61">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="62" name="othellier"/>      
-      <multiplicity id="63" minimum="0" maximum="2147483647"/>    
+  <association id="25">    
+    <bendpoint x="255" y="438"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="26" name="ihm"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="64">    
-    <bendpoint x="1431" y="785"/>    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="65" name="plateau"/>      
-      <multiplicity id="66" minimum="0" maximum="1"/>    
+  <association id="28">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="29" name="controlJeu"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="67">    
+  <association id="31">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="68" name="p"/>      
-      <multiplicity id="69" minimum="0" maximum="1"/>    
+      <attribute id="32" name="p"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="70">    
+  <association id="34">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="35" name="couleur"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="37">    
+    <bendpoint x="1108" y="198"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="38" name="plateau"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <bendpoint x="929" y="122"/>    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="71" name="joueurEnCours"/>      
-      <multiplicity id="72" minimum="0" maximum="1"/>    
+      <attribute id="41" name="joueur1"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="73">    
-    <bendpoint x="439" y="595"/>    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="74" name="controleur"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
+  <association id="43">    
+    <bendpoint x="695" y="551"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="44" name="couleurEnCours"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="76">    
+  <nesting id="46">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <nesting id="47">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="48">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="49" name="events"/>      
+      <multiplicity id="50" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="52" name="othellier"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="54">    
+    <bendpoint x="932" y="209"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="55" name="joueur2"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="58" name="joueurEnCours"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="61" name="joueur"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
     <bendpoint x="1145" y="193"/>    
     <bendpoint x="1145" y="489"/>    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="77" name="couleur"/>      
-      <multiplicity id="78" minimum="0" maximum="1"/>    
+      <attribute id="64" name="couleur"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="67" name="ihmScore"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="69">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="70">    
+    <bendpoint x="412" y="424"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="71" name="ihmPlateau"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="74" name="plateau"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <bendpoint x="1431" y="785"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="77" name="plateau"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="false" package="true" initial-value="true" signature="false" 
